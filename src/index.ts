@@ -24,6 +24,7 @@ const main = async () => {
       mongoGetUsersRepository
     );
     const { body, statusCode } = await getUsersControllers.handle();
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.status(statusCode).send(body);
   });
 
