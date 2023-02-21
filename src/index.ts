@@ -15,6 +15,8 @@ import { MongoGetCitiesRepository } from './repositories/city/get-cities/mongo-g
 import { GetCitiesControllers } from './controllers/city/get-cities/get-cities';
 import { MongoUpdateCityRepository } from './repositories/city/update-city/mongo-update-city';
 import { UpdateCityController } from './controllers/city/update-city/update-city';
+import { MongoDeleteCityRepository } from './repositories/city/delete-city/mongo-delete-city';
+import { DeleteCityController } from './controllers/city/delete-city/delete-city';
 const cors = require('cors');
 
 const main = async () => {
@@ -82,7 +84,6 @@ const main = async () => {
     res.status(statusCode).send(body);
   });
 
-
   app.post('/cities', async (req, res) => {
     const mongoCreateCityRepository = new MongoCreateCityRepository();
     const createCityController = new CreateCityController(
@@ -96,9 +97,7 @@ const main = async () => {
 
   app.patch('/cities/:id', async (req, res) => {
     const updateCityRepository = new MongoUpdateCityRepository();
-    const updateCityController = new UpdateCityController(
-      updateCityRepository
-    );
+    const updateCityController = new UpdateCityController(updateCityRepository);
     const { body, statusCode } = await updateCityController.handle({
       body: req.body,
       params: req.params,
@@ -106,6 +105,14 @@ const main = async () => {
     res.status(statusCode).send(body);
   });
 
+  app.delete('/cities/:id', async (req, res) => {
+    const deleteCityRepository = new MongoDeleteCityRepository();
+    const deleteCityController = new DeleteCityController(deleteCityRepository);
+    const { body, statusCode } = await deleteCityController.handle({
+      params: req.params,
+    });
+    res.status(statusCode).send(body);
+  });
 
   const port = process.env.PORT || 8000;
 
