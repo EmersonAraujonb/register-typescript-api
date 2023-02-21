@@ -1,20 +1,20 @@
 import express from 'express';
 import { config } from 'dotenv';
-import { GetUsersControllers } from './controllers/get-users/get-users';
-import { MongoGetUsersRepository } from './repositories/get-users/mongo-get-users';
+import { GetUsersControllers } from './controllers/user/get-users/get-users';
+import { MongoGetUsersRepository } from './repositories/user/get-users/mongo-get-users';
 import { MongoClient } from './database/mongo';
-import { MongoCreateUserRepository } from './repositories/create-user/mongo-create-user';
-import { CreateUserController } from './controllers/create-user/create-user';
-import { MongoUpdateUserRepository } from './repositories/update-user/mongo-update-user';
-import { UpdateUserController } from './controllers/update-user/update-user';
-import { MongoDeleteUserRepository } from './repositories/delete-user/mongo-delete-user';
-import { DeleteUserController } from './controllers/delete-user/delete-user';
-import { MongoCreateCityRepository } from './repositories/create-city/mongo-create-city';
-import { CreateCityController } from './controllers/create-city/create-city';
-import { MongoGetCitiesRepository } from './repositories/get-cities/mongo-get-cities';
-import { GetCitiesControllers } from './controllers/get-cities/get-cities';
-import { MongoUpdateCityRepository } from './repositories/update-city/mongo-update-city';
-import { UpdateCityController } from './controllers/update-city/update-city';
+import { MongoCreateUserRepository } from './repositories/user/create-user/mongo-create-user';
+import { CreateUserController } from './controllers/user/create-user/create-user';
+import { MongoUpdateUserRepository } from './repositories/user/update-user/mongo-update-user';
+import { UpdateUserController } from './controllers/user/update-user/update-user';
+import { MongoDeleteUserRepository } from './repositories/user/delete-user/mongo-delete-user';
+import { DeleteUserController } from './controllers/user/delete-user/delete-user';
+import { MongoCreateCityRepository } from './repositories/city/create-city/mongo-create-city';
+import { CreateCityController } from './controllers/city/create-city/create-city';
+import { MongoGetCitiesRepository } from './repositories/city/get-cities/mongo-get-cities';
+import { GetCitiesControllers } from './controllers/city/get-cities/get-cities';
+import { MongoUpdateCityRepository } from './repositories/city/update-city/mongo-update-city';
+import { UpdateCityController } from './controllers/city/update-city/update-city';
 const cors = require('cors');
 
 const main = async () => {
