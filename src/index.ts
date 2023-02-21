@@ -11,6 +11,8 @@ import { MongoDeleteUserRepository } from './repositories/delete-user/mongo-dele
 import { DeleteUserController } from './controllers/delete-user/delete-user';
 import { MongoCreateCityRepository } from './repositories/create-city/mongo-create-city';
 import { CreateCityController } from './controllers/create-city/create-city';
+import { MongoGetCitiesRepository } from './repositories/get-cities/mongo-get-cities';
+import { GetCitiesControllers } from './controllers/get-cities/get-cities';
 const cors = require('cors');
 
 const main = async () => {
@@ -68,6 +70,17 @@ const main = async () => {
     res.status(statusCode).send(body);
   });
   // cities
+  app.get('/cities', async (req, res) => {
+    const mongoGetCitiesRepository = new MongoGetCitiesRepository();
+    const getCitiesControllers = new GetCitiesControllers(
+      mongoGetCitiesRepository
+    );
+    const { body, statusCode } = await getCitiesControllers.handle();
+    // res.header('Access-Control-Allow-Origin', '*');
+    res.status(statusCode).send(body);
+  });
+
+
   app.post('/cities', async (req, res) => {
     const mongoCreateCityRepository = new MongoCreateCityRepository();
     const createCityController = new CreateCityController(

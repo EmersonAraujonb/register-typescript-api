@@ -3,7 +3,7 @@ import {
   ICreateCityRepository,
 } from '../../controllers/create-city/protocols';
 import { MongoClient } from '../../database/mongo';
-import { City } from '../../models/cities';
+import { City } from '../../models/city';
 
 export class MongoCreateCityRepository implements ICreateCityRepository {
   async createCity(params: CreateCityParams): Promise<City> {

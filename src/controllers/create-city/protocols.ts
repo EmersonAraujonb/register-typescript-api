@@ -1,4 +1,4 @@
-import { City } from '../../models/cities';
+import { City } from '../../models/city';
 import { HttpResponse, HttpResquest } from '../protocols';
 
 export interface ICreateCityController {
