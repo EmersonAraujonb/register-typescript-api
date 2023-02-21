@@ -13,6 +13,8 @@ import { MongoCreateCityRepository } from './repositories/create-city/mongo-crea
 import { CreateCityController } from './controllers/create-city/create-city';
 import { MongoGetCitiesRepository } from './repositories/get-cities/mongo-get-cities';
 import { GetCitiesControllers } from './controllers/get-cities/get-cities';
+import { MongoUpdateCityRepository } from './repositories/update-city/mongo-update-city';
+import { UpdateCityController } from './controllers/update-city/update-city';
 const cors = require('cors');
 
 const main = async () => {
@@ -76,7 +78,7 @@ const main = async () => {
       mongoGetCitiesRepository
     );
     const { body, statusCode } = await getCitiesControllers.handle();
-    // res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', '*');
     res.status(statusCode).send(body);
   });
 
@@ -91,6 +93,19 @@ const main = async () => {
     });
     res.status(statusCode).send(body);
   });
+
+  app.patch('/cities/:id', async (req, res) => {
+    const updateCityRepository = new MongoUpdateCityRepository();
+    const updateCityController = new UpdateCityController(
+      updateCityRepository
+    );
+    const { body, statusCode } = await updateCityController.handle({
+      body: req.body,
+      params: req.params,
+    });
+    res.status(statusCode).send(body);
+  });
+
 
   const port = process.env.PORT || 8000;
 
