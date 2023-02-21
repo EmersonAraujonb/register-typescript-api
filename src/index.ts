@@ -9,12 +9,14 @@ import { MongoUpdateUserRepository } from './repositories/update-user/mongo-upda
 import { UpdateUserController } from './controllers/update-user/update-user';
 import { MongoDeleteUserRepository } from './repositories/delete-user/mongo-delete-user';
 import { DeleteUserController } from './controllers/delete-user/delete-user';
+const cors = require('cors');
 
 const main = async () => {
     config();
     
     const app = express();
     app.use(express.json())
+    app.use(cors())
     
     await MongoClient.connect();
     
