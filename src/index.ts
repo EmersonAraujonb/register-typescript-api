@@ -17,6 +17,8 @@ import { MongoUpdateCityRepository } from './repositories/city/update-city/mongo
 import { UpdateCityController } from './controllers/city/update-city/update-city';
 import { MongoDeleteCityRepository } from './repositories/city/delete-city/mongo-delete-city';
 import { DeleteCityController } from './controllers/city/delete-city/delete-city';
+import { User } from './models/user';
+import { City } from './models/city';
 const cors = require('cors');
 
 const main = async () => {
@@ -35,9 +37,23 @@ const main = async () => {
     const getUsersControllers = new GetUsersControllers(
       mongoGetUsersRepository
     );
-    const { body, statusCode } = await getUsersControllers.handle();
+    const { statusCode } = await getUsersControllers.handle();
     res.header('Access-Control-Allow-Origin', '*');
-    res.status(statusCode).send(body);
+    
+
+    let {limit=0, page=1 }: unknown | any  = req.query;
+    limit = parseInt(limit);
+    page = Number(page - 1)
+
+    console.log(req.query)
+
+     const users = await MongoClient.db
+       .collection<Omit<User, 'id'>>('users')
+       .find({}).skip(page * limit).limit(limit)
+      .toArray();
+    
+       res.status(statusCode).send({XTotalCount: users.length, users})
+        return users;
   });
 
   app.post('/peoples', async (req, res) => {
@@ -45,7 +61,7 @@ const main = async () => {
     const createUserController = new CreateUserController(
       mongoCreateUserRepository
     );
-    const { body, statusCode } = await createUserController.handle({
+    const { body, statusCode, } = await createUserController.handle({
       body: req.body,
     });
     res.status(statusCode).send(body);
@@ -79,9 +95,23 @@ const main = async () => {
     const getCitiesControllers = new GetCitiesControllers(
       mongoGetCitiesRepository
     );
-    const { body, statusCode } = await getCitiesControllers.handle();
+    const { statusCode } = await getCitiesControllers.handle();
     res.header('Access-Control-Allow-Origin', '*');
-    res.status(statusCode).send(body);
+
+
+    let {limit=0, page=1 }: unknown | any  = req.query;
+    limit = parseInt(limit);
+    page = Number(page - 1)
+
+    console.log(req.query)
+
+     const cities = await MongoClient.db
+       .collection<Omit<City, 'id'>>('cities')
+       .find({}).skip(page * limit).limit(limit)
+      .toArray();
+    
+       res.status(statusCode).send({XTotalCount: cities.length, cities})
+        return cities;
   });
 
   app.post('/cities', async (req, res) => {
@@ -114,7 +144,8 @@ const main = async () => {
     res.status(statusCode).send(body);
   });
 
-  const port = process.env.PORT || 8000;
+  const port = process.env.PORT || 4000;
+  
 
   app.listen(port, () => console.log(`listening on port:${port}!`));
 };

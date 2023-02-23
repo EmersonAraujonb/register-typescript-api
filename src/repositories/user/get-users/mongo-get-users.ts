@@ -14,4 +14,5 @@ export class MongoGetUsersRepository implements IGetUsersRepository {
       id: _id.toHexString(),
     }));
   }
+
 }

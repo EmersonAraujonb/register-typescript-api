@@ -7,7 +7,7 @@ export class GetUsersControllers implements IGetUsersControllers {
       const users = await this.getUsersRepository.getUsers();
       return {
         statusCode: 200,
-        body: users,
+        body: users
       };
     } catch (error) {
       return {
