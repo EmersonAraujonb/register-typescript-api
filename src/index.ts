@@ -39,21 +39,24 @@ const main = async () => {
     );
     const { statusCode } = await getUsersControllers.handle();
     res.header('Access-Control-Allow-Origin', '*');
-    
 
-    let {limit=0, page=1 }: unknown | any  = req.query;
+    let { limit = 0, page = 1 }: unknown | any = req.query;
     limit = parseInt(limit);
-    page = Number(page - 1)
+    page = Number(page - 1);
 
-    console.log(req.query)
-
-     const users = await MongoClient.db
-       .collection<Omit<User, 'id'>>('users')
-       .find({}).skip(page * limit).limit(limit)
+    const IdUsers = await MongoClient.db
+      .collection<Omit<User, 'id'>>('users')
+      .find({})
+      .skip(page * limit)
+      .limit(limit)
       .toArray();
-    
-       res.status(statusCode).send({ users, totalCount: users.length})
-        return users;
+
+    const users = IdUsers.map(({ _id, ...rest }) => ({
+      ...rest,
+      id: _id.toHexString(),
+    }));
+    res.status(statusCode).send({ users, totalCount: users.length });
+    return users;
   });
 
   app.post('/peoples', async (req, res) => {
@@ -61,7 +64,7 @@ const main = async () => {
     const createUserController = new CreateUserController(
       mongoCreateUserRepository
     );
-    const { body, statusCode, } = await createUserController.handle({
+    const { body, statusCode } = await createUserController.handle({
       body: req.body,
     });
     res.status(statusCode).send(body);
@@ -98,20 +101,24 @@ const main = async () => {
     const { statusCode } = await getCitiesControllers.handle();
     res.header('Access-Control-Allow-Origin', '*');
 
-
-    let {limit=0, page=1 }: unknown | any  = req.query;
+    let { limit = 0, page = 1 }: unknown | any = req.query;
     limit = parseInt(limit);
-    page = Number(page - 1)
+    page = Number(page - 1);
 
-    console.log(req.query)
-
-     const cities = await MongoClient.db
-       .collection<Omit<City, 'id'>>('cities')
-       .find({}).skip(page * limit).limit(limit)
+    const IdCities = await MongoClient.db
+      .collection<Omit<City, 'id'>>('cities')
+      .find({})
+      .skip(page * limit)
+      .limit(limit)
       .toArray();
-    
-       res.status(statusCode).send({cities, totalCount: cities.length })
-        return cities;
+
+    const cities = IdCities.map(({ _id, ...rest }) => ({
+      ...rest,
+      id: _id.toHexString(),
+    }));
+
+    res.status(statusCode).send({ cities, totalCount: cities.length });
+    return cities;
   });
 
   app.post('/cities', async (req, res) => {
@@ -145,7 +152,6 @@ const main = async () => {
   });
 
   const port = process.env.PORT || 4000;
-  
 
   app.listen(port, () => console.log(`listening on port:${port}!`));
 };
