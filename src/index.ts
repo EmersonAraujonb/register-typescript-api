@@ -51,12 +51,12 @@ const main = async () => {
       .limit(limit)
       .toArray();
 
-    const users = IdUsers.map(({ _id, ...rest }) => ({
+    const data = IdUsers.map(({ _id, ...rest }) => ({
       ...rest,
       id: _id.toHexString(),
     }));
-    res.status(statusCode).send({ users, totalCount: users.length });
-    return users;
+    res.status(statusCode).send({ data, totalCount: data.length });
+    return data;
   });
 
   app.post('/peoples', async (req, res) => {
@@ -112,13 +112,13 @@ const main = async () => {
       .limit(limit)
       .toArray();
 
-    const cities = IdCities.map(({ _id, ...rest }) => ({
+    const data = IdCities.map(({ _id, ...rest }) => ({
       ...rest,
       id: _id.toHexString(),
     }));
 
-    res.status(statusCode).send({ cities, totalCount: cities.length });
-    return cities;
+    res.status(statusCode).send({ data, totalCount: data.length });
+    return data;
   });
 
   app.post('/cities', async (req, res) => {
