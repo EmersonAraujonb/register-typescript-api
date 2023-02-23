@@ -52,7 +52,7 @@ const main = async () => {
        .find({}).skip(page * limit).limit(limit)
       .toArray();
     
-       res.status(statusCode).send({ users, XTotalCount: users.length})
+       res.status(statusCode).send({ users, totalCount: users.length})
         return users;
   });
 
@@ -110,7 +110,7 @@ const main = async () => {
        .find({}).skip(page * limit).limit(limit)
       .toArray();
     
-       res.status(statusCode).send({cities, XTotalCount: cities.length })
+       res.status(statusCode).send({cities, totalCount: cities.length })
         return cities;
   });
 
