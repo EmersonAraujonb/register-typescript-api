@@ -55,7 +55,7 @@ const main = async () => {
       ...rest,
       id: _id.toHexString(),
     }));
-    res.status(statusCode).send({ data, totalCount: data.length });
+    res.status(statusCode).send(data);
     return data;
   });
 
