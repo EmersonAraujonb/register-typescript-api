@@ -53,7 +53,7 @@ const main = async () => {
 
     const data = IdUsers.map(({ _id, ...rest }) => ({
       ...rest,
-      id: _id.toHexString(),
+      id: _id.toHexString().substring(22),
     }));
     res.status(statusCode).send(data);
     return data;
