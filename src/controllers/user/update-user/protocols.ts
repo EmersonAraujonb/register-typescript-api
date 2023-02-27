@@ -3,7 +3,8 @@ import { HttpResponse, HttpResquest } from "../../protocols";
 
 export interface UpdateUserParams {
     fullName?: string,
-    email?: string
+    email?: string,
+    city?: string
 }
 
 export interface IUpdateUserController {
