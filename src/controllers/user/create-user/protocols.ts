@@ -8,6 +8,7 @@ export interface ICreateUserController {
 export interface CreateUserParams {
   fullName: string;
   email: string;
+  city: string;
 }
 
 export interface ICreateUserRepository {
