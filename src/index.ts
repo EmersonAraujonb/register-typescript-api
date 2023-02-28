@@ -55,8 +55,13 @@ const main = async () => {
       ...rest,
       id: _id.toHexString(),
     }));
-    res.status(statusCode).send(data);
-    return data;
+
+    const {search}: unknown| any = req.query;
+
+    const results = search ? data.filter(user => user.fullName.includes(search)) : data;
+
+    res.status(statusCode).send(results);
+    return results;
   });
 
   app.post('/peoples', async (req, res) => {
@@ -117,8 +122,12 @@ const main = async () => {
       id: _id.toHexString(),
     }));
 
-    res.status(statusCode).send(data);
-    return data;
+    const {search}: unknown| any = req.query;
+
+    const results = search ? data.filter(city => city.city.includes(search)) : data;
+
+    res.status(statusCode).send(results);
+    return results;
   });
 
   app.post('/cities', async (req, res) => {
