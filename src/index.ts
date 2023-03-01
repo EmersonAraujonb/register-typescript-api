@@ -58,7 +58,7 @@ const main = async () => {
 
     const {search}: unknown| any = req.query;
 
-    const results = search ? data.filter(user => user.fullName.includes(search)) : data;
+    const results = search ? data.filter(user => user.fullName.toLowerCase().includes(search)) : data;
 
     res.status(statusCode).send(results);
     return results;
@@ -124,7 +124,7 @@ const main = async () => {
 
     const {search}: unknown| any = req.query;
 
-    const results = search ? data.filter(city => city.city.includes(search)) : data;
+    const results = search ? data.filter(city => city.city.toLowerCase().includes(search)) : data;
 
     res.status(statusCode).send(results);
     return results;
