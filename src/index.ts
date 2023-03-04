@@ -42,7 +42,7 @@ const main = async () => {
 
     let { limit = 0, page = 1 }: unknown | any = req.query;
     limit = parseInt(limit);
-    page = Number(page);
+    page = Number(page - 1);
 
     const IdUsers = await MongoClient.db
       .collection<Omit<User, 'id'>>('users')
@@ -108,7 +108,7 @@ const main = async () => {
 
     let { limit = 0, page = 1 }: unknown | any = req.query;
     limit = parseInt(limit);
-    page = Number(page);
+    page = Number(page - 1);
 
     const IdCities = await MongoClient.db
       .collection<Omit<City, 'id'>>('cities')
