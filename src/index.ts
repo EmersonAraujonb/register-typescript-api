@@ -106,7 +106,7 @@ const main = async () => {
     const { statusCode } = await getCitiesControllers.handle();
     res.header('Access-Control-Allow-Origin', '*');
 
-    let { limit = 0, page = 1 }: unknown | any = req.query;
+    let { limit = 0, page = 1 }: any = req.query;
     limit = parseInt(limit);
     page = Number(page - 1);
 
@@ -122,7 +122,7 @@ const main = async () => {
       id: _id.toHexString(),
     }));
 
-    const {search}: unknown| any = req.query;
+    const {search}: any = req.query;
 
     const results = search ? data.filter(city => city.city.includes(search)) : data;
 
