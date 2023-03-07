@@ -19,6 +19,7 @@ import { MongoDeleteCityRepository } from './repositories/city/delete-city/mongo
 import { DeleteCityController } from './controllers/city/delete-city/delete-city';
 import { User } from './models/user';
 import { City } from './models/city';
+import { allCities } from './controllers/city/allCities';
 const cors = require('cors');
 
 const main = async () => {
@@ -56,9 +57,11 @@ const main = async () => {
       id: _id.toHexString(),
     }));
 
-    const {search}: unknown| any = req.query;
+    const { search }: unknown | any = req.query;
 
-    const results = search ? data.filter(user => user.fullName.includes(search)) : data;
+    const results = search
+      ? data.filter((user) => user.fullName.includes(search))
+      : data;
 
     res.status(statusCode).send(results);
     return results;
@@ -106,25 +109,28 @@ const main = async () => {
     const { statusCode } = await getCitiesControllers.handle();
     res.header('Access-Control-Allow-Origin', '*');
 
-    let { limit = 0, page = 1 }: any = req.query;
-    limit = parseInt(limit);
-    page = Number(page - 1);
+    let { limit = 0, page = 1 }: unknown | any = req.query;
+    limit = limit;
+    page = page - 1;
 
-    const IdCities = await MongoClient.db
-      .collection<Omit<City, 'id'>>('cities')
-      .find({})
-      .skip(page * limit)
-      .limit(limit)
-      .toArray();
+    // const IdCities = await MongoClient.db
+    //   .collection<Omit<City, 'id'>>('cities')
+    //   .find({})
+    //   .skip(page * limit)
+    //   .limit(limit)
+    //   .toArray();
 
-    const data = IdCities.map(({ _id, ...rest }) => ({
-      ...rest,
-      id: _id.toHexString(),
-    }));
+    // const data = IdCities.map(({ _id, ...rest}) => ({
+    //   ...rest,
+    //   id: _id.toHexString(),
+    // }));
+    const resultCities = await Object.assign({}, allCities);
 
-    const {search}: any = req.query;
+    const { search }: unknown | any = req.query;
 
-    const results = search ? data.filter(city => city.city.includes(search)) : data;
+    const results = search
+      ? resultCities.cities.filter((city) => city.name.includes(search))
+      : resultCities;
 
     res.status(statusCode).send(results);
     return results;

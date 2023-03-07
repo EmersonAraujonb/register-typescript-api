@@ -12,7 +12,7 @@ export class CreateCityController implements ICreateCityController {
     httpResquest: HttpResquest<CreateCityParams>
   ): Promise<HttpResponse<City>> {
     try {
-      const requireFields = ['city', 'state'];
+      const requireFields = ['city'];
       for (const field of requireFields) {
         if (!httpResquest?.body?.[field as keyof CreateCityParams]?.length) {
           return {

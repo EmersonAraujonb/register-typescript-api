@@ -3,7 +3,6 @@ import { HttpResquest, HttpResponse } from '../../protocols';
 import {
   IUpdateCityController,
   IUpdateCityRepository,
-  UpdateCityParams,
 } from './protocols';
 
 export class UpdateCityController implements IUpdateCityController {

@@ -3,7 +3,6 @@ import { HttpResponse, HttpResquest } from "../../protocols";
 
 export interface UpdateCityParams {
     city?: string,
-    state?: string
 }
 
 export interface IUpdateCityController {

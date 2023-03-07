@@ -7,7 +7,6 @@ export interface ICreateCityController {
 
 export interface CreateCityParams {
   city: string;
-  state: string;
 }
 
 export interface ICreateCityRepository {
