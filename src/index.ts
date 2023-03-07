@@ -124,7 +124,7 @@ const main = async () => {
     //   ...rest,
     //   id: _id.toHexString(),
     // }));
-    const resultCities = allCities;
+    const resultCities = Object.assign({}, allCities);
 
     const { search }: unknown | any = req.query;
 
