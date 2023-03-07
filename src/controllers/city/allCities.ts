@@ -1,5 +1,5 @@
 export const allCities = {
-  [
+    cities: [
       { state: 'Rondônia', id: 1100015, name: "Alta Floresta D'Oeste" },
       { state: 'Rondônia', id: 1100379, name: 'Alto Alegre dos Parecis' },
       { state: 'Rondônia', id: 1100403, name: 'Alto Paraíso' },
