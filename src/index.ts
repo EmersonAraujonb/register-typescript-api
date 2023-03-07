@@ -109,9 +109,9 @@ const main = async () => {
     const { statusCode } = await getCitiesControllers.handle();
     res.header('Access-Control-Allow-Origin', '*');
 
-    let { limit = 0, page = 1 }: unknown | any = req.query;
-    limit = limit;
-    page = page - 1;
+    // let { limit = 0, page = 1 }: unknown | any = req.query;
+    // limit = parseInt(limit);
+    // page = Number(page - 1);
 
     // const IdCities = await MongoClient.db
     //   .collection<Omit<City, 'id'>>('cities')
@@ -124,7 +124,7 @@ const main = async () => {
     //   ...rest,
     //   id: _id.toHexString(),
     // }));
-    const resultCities = await Object.assign({}, allCities);
+    const resultCities = Object.assign({}, allCities);
 
     const { search }: unknown | any = req.query;
 
